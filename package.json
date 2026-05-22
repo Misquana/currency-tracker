@@ -23,8 +23,5 @@
   },
   "lint-staged": {
     "*.js": "eslint --fix"
-  },
-  "scripts": {
-  "fetch": "node src/index.js"
-}
+  }
 }
