@@ -9,7 +9,8 @@
   "scripts": {
     "lint": "eslint --ext=.jsx,.js,.tsx,.ts",
     "lint:fix": "eslint . --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "fetch": "node src/index.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.0.1",
