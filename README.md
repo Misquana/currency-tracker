@@ -45,8 +45,8 @@ SQLite-файл создаётся автоматически в `data/rates.db`
 
 ### Примеры
 
-\`\`\`bash
+```bash
 npm run fetch
 npm run show -- USD
 npm run history -- EUR 30
-\`\`\`
+```
