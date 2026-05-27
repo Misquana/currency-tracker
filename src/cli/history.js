@@ -1,11 +1,7 @@
 import { getRateHistory } from '../repository.js'
 
 function parseArgs() {
-  // в proccess.args находятся все аргументы, которые пользовать передал в команду history.js USD 123
-  // Я создал переменную args, в которую положил ВСЕ в неё. При это удалил 2 системных аргумента. чтобы мне было проще работать со своими аргументами.
   const args = process.argv.slice(2)
-
-  // Я првоверяю на то, что аргументы есть. То-есть, если длиннаа массива с аргументами равно 0, значит, что пользовать не передал аргументы.
   if (args.length === 0) {
     console.error('Ошибка: неправильно составлен запрос npm run history -- <code> [N]')
     console.error('Пример: npm run history -- USD 15')
@@ -29,7 +25,7 @@ function parseArgs() {
   }
 
   return {
-    currencyCode: args[0],
+    currencyCode: args[0].toUpperCase(),
     limit: args[1],
   }
 }
