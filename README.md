@@ -50,3 +50,35 @@ npm run fetch
 npm run show -- USD
 npm run history -- EUR 30
 ```
+
+## REST API
+
+Запуск сервера:
+
+\\\bash
+npm run start
+\\\
+
+Сервер поднимается на `http://localhost:3000`.
+
+### Эндпоинты
+
+| Метод | Путь | Описание |
+|-------|------|----------|
+| GET | `/api/rates/today` | Последние курсы по всем валютам |
+| GET | `/api/rates/:code` | Последний курс по валюте |
+| GET | `/api/rates/:code/history?days=N` | История последних N записей (1-365, по умолчанию 10) |
+
+### Формат ответа
+
+Успех:
+```json
+{ "data": ... }
+```
+
+Ошибка:
+```json
+{ "error": "Bad Request", "message": "..." }
+```
+
+Примеры запросов: `Currency Tracker API` (открывается в BRUNO в VS Code).
