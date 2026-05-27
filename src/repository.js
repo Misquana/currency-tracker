@@ -26,14 +26,14 @@ export function getLatestRate(currencyCode) {
   return latestStmt.get(currencyCode)
 }
 
-export function getRateHistory(currencyCode, limit) {
-  const historyStmt = db.prepare(`
+const historyStmt = db.prepare(`
   SELECT currency_code, currency_name, value, rate_date, fetched_at
   FROM rates
   WHERE currency_code = ?
   ORDER BY rate_date DESC, id DESC
+  LIMIT ?
 `)
-
+export function getRateHistory(currencyCode, limit) {
   return historyStmt.all(currencyCode, limit)
 }
 
