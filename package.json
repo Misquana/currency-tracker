@@ -6,11 +6,13 @@
   "engines": {
     "node": ">=24.15.0"
   },
-  "scripts": {
-    "lint": "eslint --ext=.jsx,.js,.tsx,.ts",
-    "lint:fix": "eslint . --fix",
-    "prepare": "husky",
-    "fetch": "node src/index.js"
+"scripts": {
+  "lint": "eslint .",
+  "lint:fix": "eslint . --fix",
+  "fetch": "node src/cli/fetch.js",
+  "show": "node src/cli/show.js",
+  "history": "node src/cli/history.js",
+  "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.0.1",
