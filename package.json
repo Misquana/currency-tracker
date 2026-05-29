@@ -6,13 +6,14 @@
   "engines": {
     "node": ">=24.15.0"
   },
-"scripts": {
-  "lint": "eslint .",
-  "lint:fix": "eslint . --fix",
-  "fetch": "node src/cli/fetch.js",
-  "show": "node src/cli/show.js",
-  "history": "node src/cli/history.js",
-  "prepare": "husky"
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "fetch": "node src/cli/fetch.js",
+    "show": "node src/cli/show.js",
+    "history": "node src/cli/history.js",
+    "prepare": "husky",
+    "start": "node src/api/server.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.0.1",
@@ -28,6 +29,7 @@
     "*.js": "eslint --fix"
   },
   "dependencies": {
-    "better-sqlite3": "^12.10.0"
+    "better-sqlite3": "^12.10.0",
+    "express": "^5.2.1"
   }
 }
