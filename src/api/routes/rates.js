@@ -4,16 +4,18 @@ import {
   getLatestRate,
   getRateHistory,
 } from '../../repository.js'
+import {
+  DEFAULT_HISTORY_DAYS,
+  MAX_HISTORY_DAYS,
+} from '../../config.js'
 
 export const ratesRouter = Router()
 
-// GET /api/rates/today
 ratesRouter.get('/today', (req, res) => {
   const rates = getAllLatestRates()
   res.json({ data: rates })
 })
 
-// GET /api/rates/:code
 ratesRouter.get('/:code', (req, res) => {
   const code = req.params.code.toUpperCase()
   const rate = getLatestRate(code)
@@ -28,15 +30,14 @@ ratesRouter.get('/:code', (req, res) => {
   res.json({ data: rate })
 })
 
-// GET /api/rates/:code/history?days=30
 ratesRouter.get('/:code/history', (req, res) => {
   const code = req.params.code.toUpperCase()
-  const days = Number(req.query.days ?? 10)
+  const days = Number(req.query.days ?? DEFAULT_HISTORY_DAYS)
 
-  if (!Number.isInteger(days) || days <= 0 || days > 365) {
+  if (!Number.isInteger(days) || days <= 0 || days > MAX_HISTORY_DAYS) {
     return res.status(400).json({
       error: 'Bad Request',
-      message: 'Query parameter "days" must be a positive integer up to 365',
+      message: `Query parameter "days" must be a positive integer up to ${MAX_HISTORY_DAYS}`,
     })
   }
 

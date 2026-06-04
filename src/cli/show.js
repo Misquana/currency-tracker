@@ -1,22 +1,12 @@
 import { getLatestRate } from '../repository.js'
-
-function parseArgs() {
-  const args = process.argv.slice(2)
-  if (args.length === 0) {
-    console.error('Использование: npm run show -- <CODE>')
-    console.error('Пример: npm run show -- USD')
-    process.exit(1)
-  }
-  return { currencyCode: args[0].toUpperCase() }
-}
+import { exitWithError, parseCurrencyCode } from './utils.js'
 
 function main() {
-  const { currencyCode } = parseArgs()
+  const { currencyCode } = parseCurrencyCode(process.argv[2], 'show')
   const rate = getLatestRate(currencyCode)
 
   if (!rate) {
-    console.error(`Курс для ${currencyCode} не найден. Сначала запусти: npm run fetch`)
-    process.exit(1)
+    exitWithError(`Курс для ${currencyCode} не найден. Сначала запусти: npm run fetch`)
   }
 
   console.log(`${rate.currency_name} (${rate.currency_code})`)
