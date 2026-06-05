@@ -1,3 +1,11 @@
+/**
+ * Преобразует  данные от API ЦБ в массив объектов курсов валют.
+ *
+ * @param {Object} rawData — данные от API
+ * @param {string} rawData.Date — дата курсов в формате
+ * @param {Object.<string, {Name: string, Value: number, Nominal: number}>}
+ * @returns {Array<{code: string, name: string, value: number, date: string}>}
+ */
 export function formatRates(rawData) {
   const date = rawData.Date
 
