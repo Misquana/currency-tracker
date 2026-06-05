@@ -93,3 +93,6 @@ npm run start
 
 При первом запуске нужно наполнить БД: `npm run fetch`.
 
+# Currency Tracker
+
+![CI](https://github.com/misquana/currency-tracker/actions/workflows/ci.yml/badge.svg)
