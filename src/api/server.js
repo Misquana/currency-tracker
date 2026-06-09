@@ -1,28 +1,8 @@
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import express from 'express'
-import { ratesRouter } from './routes/rates.js'
-import { requestLogger } from './middleware/logger.js'
-import { errorHandler } from './middleware/error-handler.js'
+import { createApp } from './app.js'
 import { SERVER_PORT } from '../config.js'
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const PUBLIC_DIR = join(__dirname, '..', '..', 'public')
-const PORT = SERVER_PORT
+const app = createApp()
 
-const app = express()
-
-app.use(requestLogger)
-app.use(express.static(PUBLIC_DIR))
-
-app.use('/api/rates', ratesRouter)
-
-app.use((req, res) => {
-  res.status(404).json({ error: 'Not Found' })
-})
-
-app.use(errorHandler)
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
+app.listen(SERVER_PORT, () => {
+  console.log(`Server running on http://localhost:${SERVER_PORT}`)
 })

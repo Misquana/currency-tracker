@@ -4,11 +4,15 @@ import { fileURLToPath } from 'node:url'
 import Database from 'better-sqlite3'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-
-const DB_PATH = join(__dirname, '..', 'data', 'rates.db')
 const SCHEMA_PATH = join(__dirname, 'schema.sql')
 
-export const db = new Database(DB_PATH)
+const DEFAULT_DB_PATH = join(__dirname, '..', 'data', 'rates.db')
 
-const schema = readFileSync(SCHEMA_PATH, 'utf-8')
-db.exec(schema)
+export function createDatabase(dbPath = DEFAULT_DB_PATH) {
+  const db = new Database(dbPath)
+  const schema = readFileSync(SCHEMA_PATH, 'utf-8')
+  db.exec(schema)
+  return db
+}
+
+export const db = createDatabase()
