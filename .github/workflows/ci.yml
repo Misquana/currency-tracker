@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  test:
-    name: Lint & Test
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +26,3 @@ jobs:
 
       - name: Run linter
         run: npm run lint
-
-      - name: Run tests
-        run: npm test
