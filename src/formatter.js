@@ -7,6 +7,10 @@
  * @returns {Array<{code: string, name: string, value: number, date: string}>}
  */
 export function formatRates(rawData) {
+  if (!rawData || !rawData.Valute) {
+    throw new Error('Valute property is missing')
+  }
+
   const date = rawData.Date
 
   return Object.entries(rawData.Valute).map(([code, currency]) => ({
