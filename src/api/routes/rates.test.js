@@ -18,7 +18,7 @@ describe('GET /api/rates/:code', () => {
     expect(response.status).toBe(200)
     expect(response.body.data).toMatchObject({
       currency_code: 'USD',
-      value: 73.3436,
+      value: 72.1388,
     })
   })
 

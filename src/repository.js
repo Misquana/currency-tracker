@@ -29,6 +29,47 @@ export function createRepository(db = defaultDb) {
     ORDER BY currency_code
   `)
 
+  const upsertCurrenciesStmt = db.prepare(`
+    INSERT INTO currencies (code, name) 
+    VALUES (?, ?) 
+    ON CONFLICT(code) DO UPDATE SET name = excluded.name
+  `)
+
+  const listNotesStmt = db.prepare(`
+    SELECT id, text, currency_code, name AS currency_name 
+    FROM notes 
+    LEFT JOIN currencies ON currency_code = code
+  `)
+
+  const listNotesByCurrencyStmt = db.prepare(`
+    SELECT id, text, currency_code, name AS currency_name 
+    FROM notes 
+    LEFT JOIN currencies ON currency_code = code
+    WHERE currency_code = ?
+  `)
+
+  const getNoteByIdStmt = db.prepare(`
+    SELECT id, text, currency_code 
+    FROM notes 
+    WHERE id = ?
+  `)
+
+  const createNoteStmt = db.prepare(`
+    INSERT INTO notes (currency_code, text) 
+    VALUES (?, ?)
+  `)
+
+  const updateNoteStmt = db.prepare(`
+    UPDATE notes 
+    SET text = ? 
+    WHERE id = ?
+  `)
+
+  const deleteNoteStmt = db.prepare(`
+    DELETE FROM notes 
+    WHERE id = ?
+  `)
+
   function saveRates(rates) {
     const insertMany = db.transaction((items) => {
       for (const rate of items) {
@@ -50,7 +91,43 @@ export function createRepository(db = defaultDb) {
     return allLatestStmt.all()
   }
 
-  return { saveRates, getLatestRate, getRateHistory, getAllLatestRates }
+  function upsertCurrencies(items) {
+    const upsertMany = db.transaction((currencies) => {
+      for (const item of currencies) {
+        upsertCurrenciesStmt.run(item.code, item.name)
+      }
+    })
+    upsertMany(items)
+  }
+
+  function listNotes({ currencyCode } = {}) {
+    if (currencyCode) {
+      return listNotesByCurrencyStmt.all(currencyCode)
+    }
+    return listNotesStmt.all()
+  }
+
+  function getNoteById(id) {
+    return getNoteByIdStmt.get(id)
+  }
+
+  function createNote({ currencyCode, text }) {
+    const result = createNoteStmt.run(currencyCode, text)
+    return { id: result.lastInsertRowid, currencyCode, text,
+    }
+  }
+
+  function updateNote(id, { text }) {
+    updateNoteStmt.run(text, id)
+    return { id, text }
+  }
+
+  function deleteNote(id) {
+    deleteNoteStmt.run(id)
+    return { id }
+  }
+
+  return { saveRates, getLatestRate, getRateHistory, getAllLatestRates, upsertCurrencies, listNotes, getNoteById, createNote, updateNote, deleteNote }
 }
 
 const defaultRepository = createRepository()
@@ -58,3 +135,9 @@ export const saveRates = defaultRepository.saveRates
 export const getLatestRate = defaultRepository.getLatestRate
 export const getRateHistory = defaultRepository.getRateHistory
 export const getAllLatestRates = defaultRepository.getAllLatestRates
+export const upsertCurrencies = defaultRepository.upsertCurrencies
+export const listNotes = defaultRepository.listNotes
+export const getNoteById = defaultRepository.getNoteById
+export const createNote = defaultRepository.createNote
+export const updateNote = defaultRepository.updateNote
+export const deleteNote = defaultRepository.deleteNote
