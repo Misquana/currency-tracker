@@ -1,0 +1,24 @@
+info:
+  name: PUT update note
+  type: http
+
+http:
+  method: PUT
+  url: http://localhost:3000/api/notes/:id
+  params:
+    - name: id
+      value: "34"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "text": "Обновленный текст"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

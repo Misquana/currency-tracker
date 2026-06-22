@@ -1,0 +1,22 @@
+info:
+  name: POST create note valid
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:3000/api/notes
+  body:
+    type: json
+    data: |-
+      {
+        "currency_code": "EUR",
+        "text": "Купить валюту"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

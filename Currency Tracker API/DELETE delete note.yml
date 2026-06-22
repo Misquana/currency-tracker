@@ -1,0 +1,19 @@
+info:
+  name: DELETE delete note
+  type: http
+  seq: 1
+
+http:
+  method: DELETE
+  url: http://localhost:3000/api/notes/:id
+  params:
+    - name: id
+      value: "34"
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

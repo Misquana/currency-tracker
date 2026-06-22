@@ -1,0 +1,18 @@
+info:
+  name: GET list notes by currency
+  type: http
+
+http:
+  method: GET
+  url: http://localhost:3000/api/notes?currency=USD
+  params:
+    - name: currency
+      value: USD
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
