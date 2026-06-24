@@ -9,11 +9,11 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "fetch": "node src/cli/fetch.js",
+    "fetch": "node node --env-file=.env src/cli/fetch.js",
     "show": "node src/cli/show.js",
     "history": "node src/cli/history.js",
     "prepare": "husky",
-    "start": "node src/api/server.js",
+    "start": "node --env-file=.env src/api/server.js",
     "test": "vitest run",
     "test:watch": "vitest"
   },
