@@ -1,0 +1,21 @@
+info:
+  name: POST without key
+  type: http
+
+http:
+  method: POST
+  url: http://localhost:3000/api/notes
+  body:
+    type: json
+    data: |2-
+       {
+            "currency_code": "EUR",
+            "text": "Купить валюту"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
