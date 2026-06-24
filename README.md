@@ -96,3 +96,24 @@ npm run start
 # Currency Tracker
 
 ![CI](https://github.com/misquana/currency-tracker/actions/workflows/ci.yml/badge.svg)
+
+# Установка
+
+Скопируй `.env.example` в `.env` и заполни значения (например, случайные 16+ символов).
+
+# Авторизация 
+
+X-API-Key название HTTP-заголовка(HEADER), который используется для авторизации запросов.
+
+Защищены эндпоинты:
+- POST
+- PUT
+- DELETE 
+ 
+GET - публичен и не защищен
+
+Для проверки добавь `.env` с актуальным `API_KEY`
+
+# Скрипты
+
+Изменены скрипты в файле `package.json` теперь `start` и `fetch` запускаются с `--env-file=.env`.
