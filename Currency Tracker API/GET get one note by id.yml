@@ -1,0 +1,18 @@
+info:
+  name: GET get one note by id
+  type: http
+
+http:
+  method: GET
+  url: http://localhost:3000/api/notes/:id
+  params:
+    - name: id
+      value: ""
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
