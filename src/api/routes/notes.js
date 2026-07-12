@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { validateCreateNote, validateUpdateNote } from '../validators/note-validator.js'
 import { listNotes, getNoteById, createNote, updateNote, deleteNote } from '../../repository.js'
+import { apiKeyAuth } from '../middleware/api-key-auth.js'
 
 export const notesRouter = Router()
 
@@ -24,7 +25,7 @@ notesRouter.get('/:id', (req, res) => {
   res.json({ data: note })
 })
 
-notesRouter.post('/', (req, res, next) => {
+notesRouter.post('/', apiKeyAuth, (req, res, next) => {
   const validation = validateCreateNote(req.body)
 
   if (!validation.valid) {
@@ -52,7 +53,7 @@ notesRouter.post('/', (req, res, next) => {
   }
 })
 
-notesRouter.put('/:id', (req, res) => {
+notesRouter.put('/:id', apiKeyAuth, (req, res) => {
   const id = Number(req.params.id)
   const existingNote = getNoteById(id)
 
@@ -77,7 +78,7 @@ notesRouter.put('/:id', (req, res) => {
   res.json({ data: updatedNote })
 })
 
-notesRouter.delete('/:id', (req, res) => {
+notesRouter.delete('/:id', apiKeyAuth, (req, res) => {
   const id = Number(req.params.id)
   const existingNote = getNoteById(id)
 

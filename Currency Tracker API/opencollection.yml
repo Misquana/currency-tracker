@@ -2,6 +2,22 @@ opencollection: 1.0.0
 
 info:
   name: Currency Tracker API
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  headers:
+    - name: X-API-Key
+      value: "{{api_key}}"
 bundled: false
 extensions:
   bruno:
